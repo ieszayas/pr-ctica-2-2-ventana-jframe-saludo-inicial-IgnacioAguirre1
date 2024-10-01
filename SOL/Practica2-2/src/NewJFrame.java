@@ -37,6 +37,7 @@ public class NewJFrame extends javax.swing.JFrame {
         TextoApellido = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Primer Saludo");
 
         ManoSaludo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/saluda.png"))); // NOI18N
 
@@ -107,7 +108,7 @@ public class NewJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No hay mas de cinco caracteres, pon bien el nombre/apellido.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (!darNombre.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+") || !conApellido.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
+        if (!darNombre.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+") || !conApellido.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+")) {
             JOptionPane.showMessageDialog(this, "Tanto como nombre como apellido no permiten numeros.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         } else {
