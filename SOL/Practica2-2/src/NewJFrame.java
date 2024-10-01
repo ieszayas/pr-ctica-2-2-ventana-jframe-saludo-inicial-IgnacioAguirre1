@@ -5,7 +5,6 @@ import javax.swing.*;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author ignacio
@@ -34,6 +33,8 @@ public class NewJFrame extends javax.swing.JFrame {
         BotonAceptar = new javax.swing.JButton();
         Info = new javax.swing.JLabel();
         TextoNombre = new javax.swing.JTextField();
+        InfoApellido = new javax.swing.JLabel();
+        TextoApellido = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,36 +49,43 @@ public class NewJFrame extends javax.swing.JFrame {
 
         Info.setText("Escribe el nombre del usuario:");
 
+        InfoApellido.setText("Escribe el apellido del usuario:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(181, 181, 181)
-                .addComponent(ManoSaludo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(108, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(BotonAceptar)
-                        .addGap(160, 160, 160))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(Info, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TextoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(102, 102, 102))))
+                            .addComponent(TextoNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                            .addComponent(InfoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TextoApellido))
+                        .addGap(102, 102, 102))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(ManoSaludo)
+                        .addGap(170, 170, 170))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(BotonAceptar)
+                        .addGap(160, 160, 160))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(63, 63, 63)
+                .addGap(31, 31, 31)
                 .addComponent(ManoSaludo)
                 .addGap(18, 18, 18)
                 .addComponent(Info)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(TextoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(InfoApellido)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TextoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(BotonAceptar)
                 .addGap(56, 56, 56))
         );
@@ -88,15 +96,26 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void BotonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAceptarActionPerformed
         String darNombre = TextoNombre.getText().trim();
+        String conApellido = TextoApellido.getText().trim();
 
         //Comprobamos que el nombre funciona
-        if (darNombre.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "El campo esta vacio, hay que poner nombre.", "Error", JOptionPane.ERROR_MESSAGE);
+        if (darNombre.isEmpty() || conApellido.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Los campos se encuentran vacios. Pon nombre y apellido", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (darNombre.length() < 5 || conApellido.length() < 5) {
+            JOptionPane.showMessageDialog(this, "No hay mas de cinco caracteres, pon bien el nombre/apellido.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (!darNombre.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+") || !conApellido.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
+            JOptionPane.showMessageDialog(this, "Tanto como nombre como apellido no permiten numeros.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         } else {
-            JOptionPane.showMessageDialog(this, "Hola " + darNombre + "!", "Saludo", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Hola " + darNombre + " " + conApellido + "!", "Saludo", JOptionPane.INFORMATION_MESSAGE);
 
             //Eliminar el campo de texto
             TextoNombre.setText("");
+            TextoApellido.setText("");
         }
 
     }//GEN-LAST:event_BotonAceptarActionPerformed
@@ -139,7 +158,9 @@ public class NewJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonAceptar;
     private javax.swing.JLabel Info;
+    private javax.swing.JLabel InfoApellido;
     private javax.swing.JLabel ManoSaludo;
+    private javax.swing.JTextField TextoApellido;
     private javax.swing.JTextField TextoNombre;
     // End of variables declaration//GEN-END:variables
 }
